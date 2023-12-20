@@ -1,109 +1,101 @@
-## [Material Kit - React](https://material-kit-react.devias.io/) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?text=%F0%9F%9A%A8Devias%20Freebie%20Alert%20-%20An%20awesome%20ready-to-use%20register%20page%20made%20with%20%23material%20%23react%0D%0Ahttps%3A%2F%2Fdevias.io%20%23createreactapp%20%23devias%20%23material%20%23freebie%20%40devias-io)
+# Kronos.AI - Universal AI Framework for E-commerce
 
-![license](https://img.shields.io/badge/license-MIT-blue.svg)
+## Overview
 
-[![Material Kit - React](https://github.com/devias-io/material-kit-react/blob/main/public/assets/thumbnail.png)](https://material-kit-react.devias.io/)
+Welcome to Kronos.AI, a Senior project aimed at creating a Universal AI Framework for E-commerce. This project focuses on developing an intelligent dashboard using Next.js, providing a seamless experience for managing various aspects of an e-commerce platform.
 
-> Free React Admin Dashboard made with [MUI's](https://mui.com/?ref=devias-io)
-> components, [React](https://reactjs.org/?ref=devias-io) and of
-> course [Next.js](https://github.com/vercel/next.js/?ref=devias-io) to boost your app development
-> process!
+## Features
 
-## Demo
+- **Intelligent Dashboard:** The Next.js-based dashboard offers a user-friendly interface for e-commerce management.
+- **Universal AI Integration:** Kronos.AI integrates universal AI features to enhance decision-making, optimize processes, and improve overall efficiency in the e-commerce environment.
+- **Scalable Architecture:** The project is built with scalability in mind, allowing for easy expansion and integration of additional features.
 
-- [Dashboard Page](https://material-kit-react.devias.io)
-- [Companies Page](https://material-kit-react.devias.io/companies)
-- [Customers Page](https://material-kit-react.devias.io/customers)
-- [Account Page](https://material-kit-react.devias.io/account)
-- [Settings Page](https://material-kit-react.devias.io/settings)
-- [Login Page](https://material-kit-react.devias.io/auth/login)
-- [Register Page](https://material-kit-react.devias.io/auth/register)
-
-## Free Figma Community File
-
-- [Duplicate File](https://www.figma.com/file/b3L1Np4RYiicZAOMopHNkm/Devias-Dashboard-Design-Library-Kit)
-
-## Upgrade to PRO Version
-
-We also have a pro version of this product which bundles even more pages and components if you want
-to save more time and design efforts :)
-
-| Free Version (this one) | [Material Kit Pro - React](https://mui.com/store/items/devias-kit-pro/)  |
-|-------------------------|:-------------------------------------------------------------------------|
-| **9** Demo Pages        | **40+** demo pages                                                       
-| ✔ Mocked Authentication | ✔ Authentication with **Amplify**, **Auth0**, **JWT** and **Firebase**   
-| -                       | ✔ Dark & light mode                                                      
-| -                       | ✔ CRA version                                                            
-| -                       | ✔ TypeScript version - for Standard Plus and Extended license            
-| -                       | ✔ Design files (sketch & figma) - for Standard Plus and Extended license 
-| -                       | ✔ Complete users flows                                                   
-
-## Quick start
-
-- [Download from Github](https://github.com/devias-io/material-kit-react/archive/master.zip)
-  or [Download from Devias](https://devias.io/products/material-kit-react) or clone the
-  repo: `git clone https://github.com/devias-io/material-kit-react.git`
-
-- Make sure your Node.js and npm versions are up to date for `React 18`
-
-- Install dependencies: `npm install` or `yarn`
-
-- Start the server: `npm run dev` or `yarn dev`
-
-- Views are on: `localhost:3000`
-
-## File Structure
-
-Within the download you'll find the following directories and files:
+## Project Directory Structure
 
 ```
-material-kit-react
-
-┌── .eslintrc.json
+kronos-ai/
+│
+├── public/
+│   ├── images/
+│   │   └── logo.png
+│   └── favicon.ico
+│
+├── src/
+│   ├── components/
+│   │   ├── Header.js
+│   │   ├── Sidebar.js
+│   │   └── ...
+│   │
+│   ├── pages/
+│   │   ├── index.js
+│   │   ├── dashboard/
+│   │   │   ├── Overview.js
+│   │   │   ├── Analytics.js
+│   │   │   └── ...
+│   │   └── ...
+│   │
+│   ├── styles/
+│   │   ├── global.css
+│   │   ├── components/
+│   │   │   ├── Header.module.css
+│   │   │   ├── Sidebar.module.css
+│   │   │   └── ...
+│   │   └── pages/
+│   │       ├── index.module.css
+│   │       ├── dashboard/
+│   │       │   ├── Overview.module.css
+│   │       │   ├── Analytics.module.css
+│   │       │   └── ...
+│   │       └── ...
+│   │
+│   ├── utils/
+│   │   ├── api.js
+│   │   └── ...
+│   │
+│   └── ...
+│
 ├── .gitignore
-├── CHANGELOG.md
-├── LICENSE.md
-├── next.config.js
 ├── package.json
 ├── README.md
-├── public
-└── src
-	├── components
-	├── contexts
-	├── guards
-	├── hocs
-	├── hooks
-	├── layouts
-	├── sections
-	├── theme
-	├── utils
-	└── pages
-		├── 404.js
-		├── _app.js
-		├── _document.js
-		├── account.js
-		├── companies.js
-		├── customers.js
-		├── index.js
-		├── products.js
-		└── settings.js
-		└──  auth
-			├── login.js
-			└── register.js
+└── ...
 ```
 
-## Resources
+## Getting Started
 
-- More freebies like this one: <https://devias.io>
+1. **Clone the repository:**
 
-## Reporting Issues:
+   ```bash
+   git clone https://github.com/nishant-ai/Kronos-Dashboard.git
+   ```
 
-- [Github Issues Page](https://github.com/devias-io/react-material-dashboard/issues?ref=devias-io)
+2. **Navigate to the project directory:**
+
+   ```bash
+   cd kronos-ai
+   ```
+
+3. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+4. **Run the development server:**
+
+   ```bash
+   npm run dev
+   ```
+
+   The dashboard will be accessible at [http://localhost:3000](http://localhost:3000).
+
+## Contribution Guidelines
+
+We welcome contributions to Kronos.AI! If you would like to contribute, please follow our [contribution guidelines](CONTRIBUTING.md).
 
 ## License
 
-- Licensed under MIT (https://github.com/devias-io/react-material-dashboard/blob/master/LICENSE.md)
+This project is licensed under the [MIT License](LICENSE).
 
-## Contact Us
+---
 
-- Email Us: support@deviasio.zendesk.com
+Feel free to explore and enhance Kronos.AI as we embark on the journey to create a powerful Universal AI Framework for E-commerce! If you have any questions or suggestions, please don't hesitate to reach out.
