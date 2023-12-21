@@ -1,7 +1,5 @@
 import NextLink from "next/link";
 import Head from "next/head";
-import ArrowUpOnSquareIcon from "@heroicons/react/24/solid/ArrowUpOnSquareIcon";
-import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import {
   Box,
@@ -92,7 +90,7 @@ const Page = () => (
             </Stack>
             <div>
               <Button
-              href="/add-product"
+                href="/add-product"
                 component={NextLink}
                 startIcon={
                   <SvgIcon fontSize="small">
