@@ -2,6 +2,8 @@ import GlobeAmericasIcon from "@heroicons/react/24/solid/GlobeAmericasIcon";
 import CogIcon from "@heroicons/react/24/solid/CogIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import ShoppingBagIcon from "@heroicons/react/24/solid/ShoppingBagIcon";
+import ArrowTrendingUpIcon from "@heroicons/react/24/solid/ArrowTrendingUpIcon";
+import ArrowUpOnSquareIcon from "@heroicons/react/24/solid/ArrowUpOnSquareIcon";
 import UserIcon from "@heroicons/react/24/solid/UserIcon";
 import UserPlusIcon from "@heroicons/react/24/solid/UserPlusIcon";
 import UsersIcon from "@heroicons/react/24/solid/UsersIcon";
@@ -32,7 +34,7 @@ export const items = [
     path: "/products/:productId",
     icon: (
       <SvgIcon fontSize="small">
-        <ShoppingBagIcon />
+        <ArrowTrendingUpIcon />
       </SvgIcon>
     ),
   },
@@ -41,7 +43,7 @@ export const items = [
     path: "/products/add",
     icon: (
       <SvgIcon fontSize="small">
-        <ShoppingBagIcon />
+        <ArrowUpOnSquareIcon />
       </SvgIcon>
     ),
   },

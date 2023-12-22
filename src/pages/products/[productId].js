@@ -28,6 +28,7 @@ import PhoneIcon from "@heroicons/react/24/solid/PhoneIcon";
 import { Chart } from "src/components/chart";
 import { useTheme } from "@mui/material/styles";
 import { OverviewSales } from "src/sections/overview/overview-sales";
+import { OverviewTraffic } from "src/sections/overview/overview-traffic";
 
 const useChartOptions = (labels) => {
   const theme = useTheme();
@@ -89,50 +90,6 @@ const iconMap = {
       <PhoneIcon />
     </SvgIcon>
   ),
-};
-
-export const OverviewTraffic = (props) => {
-  const { title, chartSeries, labels, sx } = props;
-  const chartOptions = useChartOptions(labels);
-
-  return (
-    <Card sx={sx}>
-      <CardHeader title={title} />
-      <CardContent>
-        <Chart height={300} options={chartOptions} series={chartSeries} type="donut" width="100%" />
-        <Stack
-          alignItems="center"
-          direction="row"
-          justifyContent="center"
-          spacing={2}
-          sx={{ mt: 2 }}
-        >
-          {chartSeries.map((item, index) => {
-            const label = labels[index];
-
-            return (
-              <Box
-                key={label}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                {iconMap[label]}
-                <Typography sx={{ my: 1 }} variant="h6">
-                  {label}
-                </Typography>
-                <Typography color="text.secondary" variant="subtitle2">
-                  {item}%
-                </Typography>
-              </Box>
-            );
-          })}
-        </Stack>
-      </CardContent>
-    </Card>
-  );
 };
 
 const OverviewComments = (props) => {
@@ -314,6 +271,24 @@ const Page = () => {
 
               <Grid xs={12} lg={8}>
                 <OverviewSales
+                  title="Sales"
+                  chartSeries={[
+                    {
+                      name: "This year",
+                      data: [18, 16, 5, 8, 3, 14, 14, 16, 17, 19, 18, 20],
+                    },
+                    {
+                      name: "Last year",
+                      data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13],
+                    },
+                  ]}
+                  sx={{ height: "100%" }}
+                />
+              </Grid>
+
+              <Grid xs={12} lg={8}>
+                <OverviewSales
+                  title="Revenue"
                   chartSeries={[
                     {
                       name: "This year",
@@ -423,8 +398,8 @@ const Page = () => {
                 <Grid item md={6}>
                   <OverviewTraffic
                     title="Gender"
-                    chartSeries={[63, 37]}
-                    labels={["Male", "Female"]}
+                    chartSeries={[53, 37, 10]}
+                    labels={["Male", "Female", "Other"]}
                     sx={{ height: "100%" }}
                   />
                 </Grid>
