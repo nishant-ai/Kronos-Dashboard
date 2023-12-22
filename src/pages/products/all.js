@@ -90,7 +90,7 @@ const Page = () => (
             </Stack>
             <div>
               <Button
-                href="/add-product"
+                href="/products/add"
                 component={NextLink}
                 startIcon={
                   <SvgIcon fontSize="small">
