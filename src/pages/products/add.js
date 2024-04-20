@@ -16,57 +16,59 @@ import {
   Unstable_Grid2 as Grid,
 } from "@mui/material";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
+import axios from "axios";
 
 const AccountProfileDetails = () => {
-  const [values, setValues] = useState({});
+  // const ImageInput = ({ onImageChange }) => {
+  //   const [image, setImage] = useState("");
 
-  const handleChange = useCallback((event) => {
-    setValues((prevState) => ({
-      ...prevState,
-      [event.target.name]: event.target.value,
-    }));
-  }, []);
+  //   const handleImageChange = (event) => {
+  //     const file = event.target.files[0];
+  //     const reader = new FileReader();
 
-  const handleSubmit = useCallback((event) => {
-    event.preventDefault();
-  }, []);
+  //     reader.onloadend = () => {
+  //       setImage(reader.result);
+  //       onImageChange(reader.result);
+  //     };
 
-  const ImageInput = ({ onImageChange }) => {
-    const [image, setImage] = useState("");
+  //     if (file) {
+  //       reader.readAsDataURL(file);
+  //     }
+  //   };
 
-    const handleImageChange = (event) => {
-      const file = event.target.files[0];
-      const reader = new FileReader();
+  //   return (
+  //     <Box>
+  //       <Input
+  //         type="file"
+  //         accept="image/*"
+  //         onChange={handleImageChange}
+  //         style={{ display: "none" }}
+  //         id="image-input"
+  //       />
+  //       <label htmlFor="image-input">
+  //         <Button component="span" variant="outlined" color="primary" sx={{ width: "100%" }}>
+  //           Select Image
+  //         </Button>
+  //       </label>
+  //       {image && (
+  //         <img src={image} alt="Selected" style={{ marginTop: "10px", maxWidth: "100%" }} />
+  //       )}
+  //     </Box>
+  //   );
+  // };
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
 
-      reader.onloadend = () => {
-        setImage(reader.result);
-        onImageChange(reader.result);
-      };
-
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-    };
-
-    return (
-      <Box>
-        <Input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          style={{ display: "none" }}
-          id="image-input"
-        />
-        <label htmlFor="image-input">
-          <Button component="span" variant="outlined" color="primary" sx={{ width: "100%" }}>
-            Select Image
-          </Button>
-        </label>
-        {image && (
-          <img src={image} alt="Selected" style={{ marginTop: "10px", maxWidth: "100%" }} />
-        )}
-      </Box>
-    );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post("http://localhost:8000/api/products/", {
+      name: name,
+      price: price,
+    });
+    // .then(() => {
+    //   setPrice("");
+    //   setName("");
+    // });
   };
 
   return (
@@ -75,58 +77,43 @@ const AccountProfileDetails = () => {
         <CardHeader subheader="The information can be edited" title="Profile" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
-            <Grid container spacing={3}>
-              <Grid xs={12} md={12}>
-                <ImageInput />
-              </Grid>
+            <form method="GET" onSubmit={handleSubmit}>
+              <Grid container spacing={3}>
+                <Grid xs={12} md={12}>
+                  {/* <ImageInput /> */}
+                </Grid>
 
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  helperText="Please specify the product name"
-                  label="Name"
-                  name="name"
-                  onChange={handleChange}
-                  required
-                  value={values.name}
-                />
+                <Grid xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    helperText="Please specify the product name"
+                    label="Name"
+                    name="name"
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    value={name}
+                  />
+                </Grid>
+
+                <Grid xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    label="Price"
+                    name="price"
+                    onChange={(e) => setPrice(e.target.value)}
+                    required
+                    value={price}
+                  />
+                </Grid>
               </Grid>
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Tags"
-                  name="tags"
-                  onChange={handleChange}
-                  required
-                  value={values.tags}
-                />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Price"
-                  name="price"
-                  onChange={handleChange}
-                  required
-                  value={values.price}
-                />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Description"
-                  name="description"
-                  onChange={handleChange}
-                  required
-                  value={values.price}
-                />
-              </Grid>
-            </Grid>
+            </form>
           </Box>
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: "flex-end" }}>
-          <Button variant="contained">Add Product</Button>
+          <Button variant="contained" type="submit">
+            Add Product
+          </Button>
         </CardActions>
       </Card>
     </form>

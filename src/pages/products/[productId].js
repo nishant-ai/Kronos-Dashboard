@@ -29,6 +29,8 @@ import { Chart } from "src/components/chart";
 import { useTheme } from "@mui/material/styles";
 import { OverviewSales } from "src/sections/overview/overview-sales";
 import { OverviewTraffic } from "src/sections/overview/overview-traffic";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const useChartOptions = (labels) => {
   const theme = useTheme();
@@ -197,7 +199,7 @@ function StandardImageList() {
   return (
     <ImageList sx={{ width: 800, height: 400 }} cols={4} rowHeight={164}>
       {itemData.map((item) => (
-        <ImageListItem key={item.img}>
+        <ImageListItem key={item.name}>
           <img
             srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
             src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
@@ -238,6 +240,18 @@ const itemData = [
 ];
 
 const Page = () => {
+  const [product, setProduct] = useState("");
+
+  useEffect(() => {
+    const url = window.location.href;
+    const prodId = url.split("/")[4];
+
+    axios.get(`http://localhost:8000/api/product/${prodId}/`).then((req) => {
+      setProduct(req.data);
+      console.log(product);
+    });
+  }, []);
+
   return (
     <>
       <Head>
@@ -254,14 +268,14 @@ const Page = () => {
           <Stack spacing={3}>
             <Stack spacing={4}>
               <Stack spacing={1}>
-                <Typography variant="h4">Macbook Air M2</Typography>
+                <Typography variant="h4">{product.name}</Typography>
               </Stack>
 
               <Stack direction="row" spacing={2}>
                 <StandardImageList />
                 <Stack spacing={2}>
-                  <CurrentPrice value="$15k" />
-                  <SuggestedPrice value="$15k" />
+                  <CurrentPrice value={`$ ${product.price}`} />
+                  <SuggestedPrice value={`$ ${product.recommended_price}`} ß />
                 </Stack>
               </Stack>
 
@@ -269,7 +283,7 @@ const Page = () => {
                 <Typography variant="h5">Sales Prediction</Typography>
               </Stack>
 
-              <Grid xs={12} lg={8}>
+              <Grid>
                 <OverviewSales
                   title="Sales"
                   chartSeries={[
@@ -286,7 +300,7 @@ const Page = () => {
                 />
               </Grid>
 
-              <Grid xs={12} lg={8}>
+              <Grid>
                 <OverviewSales
                   title="Revenue"
                   chartSeries={[
