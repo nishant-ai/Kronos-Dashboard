@@ -83,8 +83,10 @@ const Page = () => {
                         }}
                       />
                     </TableCell>
-                    <TableCell>Username</TableCell>
-                    <TableCell>Email</TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Age</TableCell>
+                    <TableCell>Gender</TableCell>
+                    <TableCell>Location</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -104,11 +106,13 @@ const Page = () => {
                         </TableCell>
                         <TableCell>
                           <Stack alignItems="center" direction="row" spacing={2}>
-                            <Avatar src={customer.avatar}>{getInitials(customer.username)}</Avatar>
-                            <Typography variant="subtitle2">{customer.username}</Typography>
+                            <Avatar src={customer.avatar}>{getInitials(customer.name)}</Avatar>
+                            <Typography variant="subtitle2">{customer.name}</Typography>
                           </Stack>
                         </TableCell>
-                        <TableCell>{customer.email}</TableCell>
+                        <TableCell>{customer.age}</TableCell>
+                        <TableCell>{customer.gender}</TableCell>
+                        <TableCell>{customer.location}</TableCell>
                       </TableRow>
                     );
                   })}

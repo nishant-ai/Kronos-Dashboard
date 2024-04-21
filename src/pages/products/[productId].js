@@ -101,12 +101,15 @@ const OverviewComments = (props) => {
     <Card sx={sx}>
       <CardHeader title={title} />
       <List>
-        {comments.map((comment, index) => {
+        {comments?.map((comment, index) => {
           const hasDivider = index < comment.length - 1;
 
           return (
             <ListItem divider={hasDivider} key={comment.id}>
-              <ListItemText primary={comment.name} primaryTypographyProps={{ variant: "body2" }} />
+              <ListItemText
+                primary={comment?.comment}
+                primaryTypographyProps={{ variant: "body2" }}
+              />
             </ListItem>
           );
         })}
@@ -241,6 +244,9 @@ const itemData = [
 
 const Page = () => {
   const [product, setProduct] = useState("");
+  const [posCom, setPosCom] = useState([]);
+  const [negCom, setNegCom] = useState([]);
+  const [allCom, setAllCom] = useState([]);
 
   useEffect(() => {
     const url = window.location.href;
@@ -248,8 +254,26 @@ const Page = () => {
 
     axios.get(`http://localhost:8000/api/product/${prodId}/`).then((req) => {
       setProduct(req.data);
-      console.log(product);
     });
+
+    axios
+      .get(`http://localhost:8000/api/prod_comments?sentiment=ALL&product=${prodId}`)
+      .then((req) => {
+        setAllCom(req.data);
+      });
+
+    axios
+      .get(`http://localhost:8000/api/prod_comments?sentiment=POS&product=${prodId}`)
+      .then((req) => {
+        setPosCom(req.data);
+        console.log(posCom);
+      });
+
+    axios
+      .get(`http://localhost:8000/api/prod_comments?sentiment=NEG&product=${prodId}`)
+      .then((req) => {
+        setNegCom(req.data);
+      });
   }, []);
 
   return (
@@ -325,23 +349,7 @@ const Page = () => {
                 <Grid item md={4}>
                   <OverviewComments
                     title="All Comments"
-                    comments={[
-                      {
-                        name: "This laptop is awesome! The speed is incredible.",
-                      },
-                      {
-                        name: "Regretting my purchase. It's much slower than expected.",
-                      },
-                      {
-                        name: "Love the design of this laptop, but it has some performance issues.",
-                      },
-                      {
-                        name: "Not as advertised. Disappointing features and performance.",
-                      },
-                      {
-                        name: "Impressed with the sleek design, but it occasionally freezes.",
-                      },
-                    ]}
+                    comments={allCom}
                     sx={{ height: "100%" }}
                   />
                 </Grid>
@@ -349,23 +357,7 @@ const Page = () => {
                 <Grid item md={4}>
                   <OverviewComments
                     title="Positive Comments"
-                    comments={[
-                      {
-                        name: "This laptop is awesome!",
-                      },
-                      {
-                        name: "Exceeded my expectations! Incredibly fast and efficient.",
-                      },
-                      {
-                        name: "Love my new laptop! Sleek design and powerful performance.",
-                      },
-                      {
-                        name: "Absolutely impressed with the features and performance.",
-                      },
-                      {
-                        name: "A game-changer! Handles everything with ease.",
-                      },
-                    ]}
+                    comments={posCom}
                     sx={{ height: "100%" }}
                   />
                 </Grid>
@@ -373,47 +365,7 @@ const Page = () => {
                 <Grid item md={4}>
                   <OverviewComments
                     title="Negative Comments"
-                    comments={[
-                      {
-                        name: "Disappointed with this laptop. It's not as advertised.",
-                      },
-                      {
-                        name: "Regretting my purchase. Slow performance and constant issues.",
-                      },
-                      {
-                        name: "This laptop is a letdown. Poor design and frustrating to use.",
-                      },
-                      {
-                        name: "Not impressed at all. Features are lacking, and it's unreliable.",
-                      },
-                      {
-                        name: "Avoid this laptop. It's a nightmare to deal with.",
-                      },
-                    ]}
-                    sx={{ height: "100%" }}
-                  />
-                </Grid>
-              </Grid>
-
-              <Stack spacing={1}>
-                <Typography variant="h5">Market Segmentation</Typography>
-              </Stack>
-
-              <Grid container spacing={1}>
-                <Grid item md={6}>
-                  <OverviewTraffic
-                    title="Age Group"
-                    chartSeries={[63, 15, 22]}
-                    labels={["Under 25", "Under 40", "Under 70"]}
-                    sx={{ height: "100%" }}
-                  />
-                </Grid>
-
-                <Grid item md={6}>
-                  <OverviewTraffic
-                    title="Gender"
-                    chartSeries={[53, 37, 10]}
-                    labels={["Male", "Female", "Other"]}
+                    comments={negCom}
                     sx={{ height: "100%" }}
                   />
                 </Grid>

@@ -16,11 +16,67 @@ import axios from "axios";
 const now = new Date();
 
 const Page = () => {
-  const [satisfactionRate, setSatisfactionRate] = useState("");
+  const [satisfactionRate, setSatisfactionRate] = useState(0);
+  const [revenue, setRevenue] = useState(0);
+  const [profit, setProfit] = useState(0);
+  const [customerCount, setCustomerCount] = useState("");
+
+  const [genderCompo, setGenderCompo] = useState({
+    male_compo: 0,
+    female_compo: 0,
+    others_compo: 0,
+  });
+  const [ageGroup, setAgeGroup] = useState({ under_25: 0, under_40: 0, under_75: 0 });
+  const [highPerfProds, setHighPerfProds] = useState();
+  const [lowPerfProds, setLowPerfProds] = useState([]);
+  const [latestOrders, setLatestOrders] = useState([]);
+  const [latestProds, setLatestProds] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:8000/api/satisfaction").then((res) => {
       setSatisfactionRate(res.data["satisfaction_rate"]);
+    });
+
+    axios.get("http://localhost:8000/api/customer_count").then((res) => {
+      setCustomerCount(res.data["customer_count"]);
+    });
+
+    axios.get("http://localhost:8000/api/total_revenue").then((res) => {
+      setRevenue(res.data["revenue"]);
+    });
+
+    axios.get("http://localhost:8000/api/total_profit").then((res) => {
+      setProfit(res.data["profit"]);
+    });
+
+    axios.get("http://localhost:8000/api/gender_compo").then((res) => {
+      setGenderCompo(res.data);
+      console.log(genderCompo);
+    });
+
+    axios.get("http://localhost:8000/api/age_groups").then((res) => {
+      setAgeGroup(res.data);
+      console.log(ageGroup);
+    });
+
+    axios.get("http://localhost:8000/api/latest_orders").then((res) => {
+      setLatestOrders(res.data);
+      console.log(latestOrders);
+    });
+
+    axios.get("http://localhost:8000/api/latest_products").then((res) => {
+      setLatestProds(res.data);
+      console.log(latestProds);
+    });
+
+    axios.get("http://localhost:8000/api/high_perf_prods").then((res) => {
+      setHighPerfProds(res.data);
+      console.log(highPerfProds);
+    });
+
+    axios.get("http://localhost:8000/api/low_perf_prods").then((res) => {
+      setLowPerfProds(res.data);
+      console.log(lowPerfProds);
     });
   }, []);
 
@@ -39,17 +95,22 @@ const Page = () => {
         <Container maxWidth="xl">
           <Grid container spacing={3}>
             <Grid xs={12} sm={6} lg={3}>
-              <OverviewRevenue difference={12} positive sx={{ height: "100%" }} value="$24k" />
+              <OverviewRevenue
+                difference={12}
+                positive
+                sx={{ height: "100%" }}
+                value={`$ ${revenue}`}
+              />
             </Grid>
             <Grid xs={12} sm={6} lg={3}>
-              <OverviewTotalProfit sx={{ height: "100%" }} value="$15k" />
+              <OverviewTotalProfit sx={{ height: "100%" }} value={`$ ${profit}`} />
             </Grid>
             <Grid xs={12} sm={6} lg={3}>
               <OverviewTotalCustomers
                 difference={16}
                 positive={false}
                 sx={{ height: "100%" }}
-                value="1.6k"
+                value={customerCount.toString()}
               />
             </Grid>
             <Grid xs={12} sm={6} lg={3}>
@@ -59,7 +120,11 @@ const Page = () => {
             <Grid xs={12} md={6} lg={4}>
               <OverviewTraffic
                 title="Gender Composition"
-                chartSeries={[43, 25, 32]}
+                chartSeries={[
+                  genderCompo?.male_compo,
+                  genderCompo?.female_compo,
+                  genderCompo?.others_compo,
+                ]}
                 labels={["Male", "Female", "Others"]}
                 sx={{ height: "100%" }}
               />
@@ -68,17 +133,8 @@ const Page = () => {
             <Grid xs={12} md={6} lg={4}>
               <OverviewTraffic
                 title="Age Group"
-                chartSeries={[15, 22, 63]}
+                chartSeries={[ageGroup?.under_25, ageGroup?.under_40, ageGroup?.under_75]}
                 labels={["Under 25", "Under 40", "Under 70"]}
-                sx={{ height: "100%" }}
-              />
-            </Grid>
-
-            <Grid xs={12} md={6} lg={4}>
-              <OverviewTraffic
-                title="Traffic Composition"
-                chartSeries={[63, 15, 22]}
-                labels={["Desktop", "Tablet", "Phone"]}
                 sx={{ height: "100%" }}
               />
             </Grid>
@@ -120,38 +176,7 @@ const Page = () => {
             <Grid xs={12} md={6} lg={6}>
               <OverviewLatestProducts
                 title="High Performing Products"
-                products={[
-                  {
-                    id: "5ece2c077e39da27658aa8a9",
-                    image: "/assets/products/product-1.png",
-                    name: "Cera Ve",
-                    updatedAt: subHours(now, 6).getTime(),
-                  },
-                  {
-                    id: "5ece2c0d16f70bff2cf86cd8",
-                    image: "/assets/products/product-2.png",
-                    name: "Self Care Kit",
-                    updatedAt: subDays(subHours(now, 8), 2).getTime(),
-                  },
-                  {
-                    id: "b393ce1b09c1254c3a92c827",
-                    image: "/assets/products/product-5.png",
-                    name: "Skincare Soja CO",
-                    updatedAt: subDays(subHours(now, 1), 1).getTime(),
-                  },
-                  {
-                    id: "a6ede15670da63f49f752c89",
-                    image: "/assets/products/product-6.png",
-                    name: "Loreal Expert Pack",
-                    updatedAt: subDays(subHours(now, 3), 3).getTime(),
-                  },
-                  {
-                    id: "bcad5524fe3a2f8f8620ceda",
-                    image: "/assets/products/product-7.png",
-                    name: "Tea Tree Facewash",
-                    updatedAt: subDays(subHours(now, 5), 6).getTime(),
-                  },
-                ]}
+                products={highPerfProds}
                 sx={{ height: "100%" }}
               />
             </Grid>
@@ -159,146 +184,17 @@ const Page = () => {
             <Grid xs={12} md={6} lg={6}>
               <OverviewLatestProducts
                 title="Low Performing Products"
-                products={[
-                  {
-                    id: "5ece2c077e39da27658aa8a9",
-                    image: "/assets/products/product-1.png",
-                    name: "Cera Ve",
-                    updatedAt: subHours(now, 6).getTime(),
-                  },
-                  {
-                    id: "5ece2c0d16f70bff2cf86cd8",
-                    image: "/assets/products/product-2.png",
-                    name: "Self Care Kit",
-                    updatedAt: subDays(subHours(now, 8), 2).getTime(),
-                  },
-                  {
-                    id: "b393ce1b09c1254c3a92c827",
-                    image: "/assets/products/product-5.png",
-                    name: "Skincare Soja CO",
-                    updatedAt: subDays(subHours(now, 1), 1).getTime(),
-                  },
-                  {
-                    id: "a6ede15670da63f49f752c89",
-                    image: "/assets/products/product-6.png",
-                    name: "Loreal Expert Pack",
-                    updatedAt: subDays(subHours(now, 3), 3).getTime(),
-                  },
-                  {
-                    id: "bcad5524fe3a2f8f8620ceda",
-                    image: "/assets/products/product-7.png",
-                    name: "Tea Tree Facewash",
-                    updatedAt: subDays(subHours(now, 5), 6).getTime(),
-                  },
-                ]}
+                products={lowPerfProds}
                 sx={{ height: "100%" }}
               />
             </Grid>
 
             <Grid xs={12} md={12} lg={8}>
-              <OverviewLatestOrders
-                orders={[
-                  {
-                    id: "f69f88012978187a6c12897f",
-                    ref: "DEV1049",
-                    amount: 30.5,
-                    customer: {
-                      name: "Ekaterina Tankova",
-                    },
-                    createdAt: 1555016400000,
-                    status: "pending",
-                  },
-                  {
-                    id: "9eaa1c7dd4433f413c308ce2",
-                    ref: "DEV1048",
-                    amount: 25.1,
-                    customer: {
-                      name: "Cao Yu",
-                    },
-                    createdAt: 1555016400000,
-                    status: "delivered",
-                  },
-                  {
-                    id: "01a5230c811bd04996ce7c13",
-                    ref: "DEV1047",
-                    amount: 10.99,
-                    customer: {
-                      name: "Alexa Richardson",
-                    },
-                    createdAt: 1554930000000,
-                    status: "refunded",
-                  },
-                  {
-                    id: "1f4e1bd0a87cea23cdb83d18",
-                    ref: "DEV1046",
-                    amount: 96.43,
-                    customer: {
-                      name: "Anje Keizer",
-                    },
-                    createdAt: 1554757200000,
-                    status: "pending",
-                  },
-                  {
-                    id: "9f974f239d29ede969367103",
-                    ref: "DEV1045",
-                    amount: 32.54,
-                    customer: {
-                      name: "Clarke Gillebert",
-                    },
-                    createdAt: 1554670800000,
-                    status: "delivered",
-                  },
-                  {
-                    id: "ffc83c1560ec2f66a1c05596",
-                    ref: "DEV1044",
-                    amount: 16.76,
-                    customer: {
-                      name: "Adam Denisov",
-                    },
-                    createdAt: 1554670800000,
-                    status: "delivered",
-                  },
-                ]}
-                sx={{ height: "100%" }}
-              />
+              <OverviewLatestOrders orders={latestOrders} sx={{ height: "100%" }} />
             </Grid>
 
             <Grid xs={12} md={6} lg={4}>
-              <OverviewLatestProducts
-                products={[
-                  {
-                    id: "5ece2c077e39da27658aa8a9",
-                    image: "/assets/products/product-1.png",
-                    name: "Cera Ve",
-                    updatedAt: subHours(now, 6).getTime(),
-                  },
-                  {
-                    id: "5ece2c0d16f70bff2cf86cd8",
-                    image: "/assets/products/product-2.png",
-                    name: "Self Care Kit",
-                    updatedAt: subDays(subHours(now, 8), 2).getTime(),
-                  },
-                  {
-                    id: "b393ce1b09c1254c3a92c827",
-                    image: "/assets/products/product-5.png",
-                    name: "Skincare Soja CO",
-                    updatedAt: subDays(subHours(now, 1), 1).getTime(),
-                  },
-                  {
-                    id: "a6ede15670da63f49f752c89",
-                    image: "/assets/products/product-6.png",
-                    name: "Loreal Expert Pack",
-                    updatedAt: subDays(subHours(now, 3), 3).getTime(),
-                  },
-                  {
-                    id: "bcad5524fe3a2f8f8620ceda",
-                    image: "/assets/products/product-7.png",
-                    name: "Tea Tree Facewash",
-                    updatedAt: subDays(subHours(now, 5), 6).getTime(),
-                  },
-                ]}
-                sx={{ height: "100%" }}
-              />
+              <OverviewLatestProducts products={latestProds} sx={{ height: "100%" }} />
             </Grid>
           </Grid>
         </Container>

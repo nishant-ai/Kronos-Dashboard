@@ -35,20 +35,20 @@ export const OverviewLatestOrders = (props) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Order</TableCell>
+                <TableCell>Product</TableCell>
                 <TableCell>Customer</TableCell>
+                <TableCell>Quantity</TableCell>
                 <TableCell sortDirection="desc">Date</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {orders.map((order) => {
-                const createdAt = format(order.createdAt, "dd/MM/yyyy");
-
                 return (
-                  <TableRow hover key={order.id}>
-                    <TableCell>{order.ref}</TableCell>
-                    <TableCell>{order.customer.name}</TableCell>
-                    <TableCell>{createdAt}</TableCell>
+                  <TableRow hover key={order.product}>
+                    <TableCell>{order.product}</TableCell>
+                    <TableCell>{order.customer}</TableCell>
+                    <TableCell>{order.quantity}</TableCell>
+                    <TableCell>{order.created_at}</TableCell>
                   </TableRow>
                 );
               })}
@@ -56,21 +56,6 @@ export const OverviewLatestOrders = (props) => {
           </Table>
         </Box>
       </Scrollbar>
-      <Divider />
-      <CardActions sx={{ justifyContent: "flex-end" }}>
-        <Button
-          color="inherit"
-          endIcon={
-            <SvgIcon fontSize="small">
-              <ArrowRightIcon />
-            </SvgIcon>
-          }
-          size="small"
-          variant="text"
-        >
-          View all
-        </Button>
-      </CardActions>
     </Card>
   );
 };
