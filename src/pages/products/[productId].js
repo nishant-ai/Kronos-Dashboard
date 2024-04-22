@@ -115,20 +115,6 @@ const OverviewComments = (props) => {
         })}
       </List>
       <Divider />
-      <CardActions sx={{ justifyContent: "flex-end" }}>
-        <Button
-          color="inherit"
-          endIcon={
-            <SvgIcon fontSize="small">
-              <ArrowRightIcon />
-            </SvgIcon>
-          }
-          size="small"
-          variant="text"
-        >
-          View all (490+)
-        </Button>
-      </CardActions>
     </Card>
   );
 };

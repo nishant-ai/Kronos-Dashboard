@@ -57,13 +57,14 @@ const AccountProfileDetails = () => {
   //   );
   // };
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState();
+  const [cost, setCost] = useState();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     axios.post("http://localhost:8000/api/products/", {
       name: name,
       price: price,
+      cost: cost,
     });
     // .then(() => {
     //   setPrice("");
@@ -103,6 +104,17 @@ const AccountProfileDetails = () => {
                     onChange={(e) => setPrice(e.target.value)}
                     required
                     value={price}
+                  />
+                </Grid>
+
+                <Grid xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    label="Cost for Me"
+                    name="cost"
+                    onChange={(e) => setCost(e.target.value)}
+                    required
+                    value={cost}
                   />
                 </Grid>
               </Grid>
